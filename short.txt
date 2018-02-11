@@ -1,0 +1,10 @@
+← Do Things: A Clojure Crash Course
+Functional Programming →
+Chapter 4
+Core Functions in Depth
+
+If you’re a huge fan of the angsty, teenager-centric, quasi–soap opera The 
+Vampire Diaries like I am, you’ll remember the episode where the lead 
+protagonist, Elena, starts to question her pale, mysterious crush’s behavior: 
+“Why did he instantly vanish without a trace when I scraped my knee?” and 
+“How come his face turned into a grotesque mask of death when I nicked my 

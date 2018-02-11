@@ -1,7 +1,13 @@
 (ns first.core
   (:gen-class))
 
+(use 'clojure.java.io)
+
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Read a file and produce a hit list of word counts"
   [& args]
-  (println "Hello, World!"))
+  (with-open [rdr (reader "short.txt")]
+    (doseq [line (line-seq rdr)]
+      (->> (clojure.string/split line #"\ +")
+           (println)))))
+
