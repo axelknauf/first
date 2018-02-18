@@ -12,12 +12,14 @@
 
 (defn inc-word-count [word]
   "updates the count for the given word in `collected-words`"
-  (swap! collected-words inc-word-using-key (keyword word)))
+  (swap! collected-words inc-word-using-key
+         (keyword (clojure.string/lower-case word))))
 
 (defn process-line
   "counts the words in the given vector"
   [words]
   (doseq [word words]
+    ; TODO sanitize word, filter empty, remove special characters
     (inc-word-count word)))
 
 (defn process-file
@@ -27,8 +29,22 @@
     (doseq [line (line-seq rdr)]
       (process-line (clojure.string/split line #"\ +")))))
 
+(defn sort-map-by-value
+  "sorts the given map by the value descending"
+  [m]
+  (into (sorted-map-by (fn [key1 key2]
+                         (compare [(get m key2) key2]
+                                  [(get m key1) key1])))
+        m))
+
+(defn top-ten
+  "fetches the top ten entries from the given map"
+  [m]
+  (take 10 (sort-map-by-value m)))
+
 (defn -main
   "Read a file and produce a hit list of word counts"
   [& args]
-  (process-file "short.txt") ; try some.txt
-  (println @collected-words))
+  (process-file "some.txt") ; try some.txt
+  (->> (top-ten @collected-words)
+       (map println)))
