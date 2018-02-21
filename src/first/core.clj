@@ -15,11 +15,16 @@
   (swap! collected-words inc-word-using-key
          (keyword (clojure.string/lower-case word))))
 
+(defn sanitize-words
+  "filters and cleans up the given list of words"
+  [words]
+  (->> (map clojure.string/trim words)
+       (filter (complement empty?))))
+
 (defn process-line
   "counts the words in the given vector"
-  [words]
-  (doseq [word words]
-    ; TODO sanitize word, filter empty, remove special characters
+  [input-words]
+  (doseq [word (sanitize-words input-words)]
     (inc-word-count word)))
 
 (defn process-file
@@ -42,9 +47,14 @@
   [m]
   (take 10 (sort-map-by-value m)))
 
+(defn print-entry
+  "prints a single entry from the hitlist"
+  [[w c]]
+  (println (subs (str w) 1) "->" c))
+
 (defn -main
   "Read a file and produce a hit list of word counts"
   [& args]
   (process-file "some.txt") ; try some.txt
   (->> (top-ten @collected-words)
-       (map println)))
+       (map print-entry)))
