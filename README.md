@@ -4,11 +4,11 @@ Produce a top-ten word count list from a given text file. My first attempt at wr
 
 ## Installation
 
-Clone this repo and run its main method from a repl.
+Clone this repo and run `lein run` or call `-main` from a repl.
 
 ## Options
 
-You can change the file being read in core.clj. There are two sample files short.txt and some.txt. 
+You can change the file being read in core.clj. There are two sample files short.txt and some.txt. Yes, this could be a command line parameter. 
 
 ## Examples
 
