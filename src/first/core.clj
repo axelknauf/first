@@ -57,5 +57,5 @@
   [& args]
   (swap! collected-words {})
   (process-file "some.txt") ; try some.txt
-  (->> (top-ten @collected-words)
-       (map print-entry)))
+  (dorun (->> (top-ten @collected-words)
+              (map print-entry))))
